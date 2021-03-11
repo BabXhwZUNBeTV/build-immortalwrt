@@ -1,7 +1,6 @@
 name: master
 
 on:
-  push:
     branches: 
       - master
 #  release:
@@ -63,11 +62,11 @@ jobs:
     - name: Upload bin
       uses: actions/upload-artifact@v2
       with:
-        name: bin
+        name: immortalwrt-master-bin
         path: /home/runner/immortalwrt/bin/
         
     - name: Upload Firmwares
       uses: actions/upload-artifact@v2
       with:
-        name: Firmwares
+        name: immortalwrt-master-Firmwares
         path: /home/runner/immortalwrt/bin/targets/
