@@ -1,6 +1,7 @@
 name: 18.06-k5.4
 
 on:
+  workflow_dispatch:
     branches: 
       - master
 #  release:
@@ -10,7 +11,7 @@ on:
 #  watch:
 #    types: started
 #  repository_dispatch:
-  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-18.04
