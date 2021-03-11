@@ -1,4 +1,4 @@
-name: Build-OpenWrt
+name: 21.02
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
     - name: Clone Source
       run: |
         cd /home/runner
-        bash ${GITHUB_WORKSPACE}/clone_source.sh
+        bash ${GITHUB_WORKSPACE}/clone_source_2102.sh
         sudo chown -R runner:runner immortalwrt
     - name: Before Build
       run: |
@@ -59,11 +59,13 @@ jobs:
     - name: After Build
       run: |
         /bin/bash /home/runner/immortalwrt/after_build.sh
-    - name: Upload Packages
+        
+    - name: Upload bin
       uses: actions/upload-artifact@v2
       with:
-        name: Packages
-        path: /home/runner/immortalwrt/bin/packages/
+        name: bin
+        path: /home/runner/immortalwrt/bin/
+        
     - name: Upload Firmwares
       uses: actions/upload-artifact@v2
       with:
