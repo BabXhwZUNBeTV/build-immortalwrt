@@ -39,7 +39,7 @@ jobs:
     - name: Clone Source
       run: |
         cd /home/runner
-        bash ${GITHUB_WORKSPACE}/clone_source_1806k54.sh
+        bash ${GITHUB_WORKSPACE}/clone_sources/clone_source_1806k54.sh
         sudo chown -R runner:runner immortalwrt
     - name: Before Build
       run: |
