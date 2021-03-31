@@ -20,6 +20,7 @@ jobs:
     steps:
     - name: Clone Repository
       uses: actions/checkout@v2
+
     - name: Init Compilation Dependencies
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -35,26 +36,29 @@ jobs:
         sudo -E apt-get -qq clean
         sudo -E swapoff -a
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc /swapfile
+
     - name: Clone Source
       run: |
         cd /home/runner
         bash ${GITHUB_WORKSPACE}/clone_sources/clone_source_2102.sh
         sudo chown -R runner:runner immortalwrt
+
     - name: Before Build
       run: |
         /bin/bash ${GITHUB_WORKSPACE}/before_build.sh
         cp -fpR ${GITHUB_WORKSPACE}/. /home/runner/immortalwrt/
 
-    - name: SSH connection to Actions
-      uses: csexton/debugger-action@master
+  #  - name: SSH connection to Actions
+   #   uses: csexton/debugger-action@master
 
     - name: Start Build
       run: | 
         cd /home/runner/immortalwrt
-        mv .config .config_default
+        mv 21.02.config .config_default
         rm -f .config.old
         config_names="$(ls .config*)"
         for i in $config_names;do mv -f $i .config; make defconfig; make -j$[$(nproc)+1]; rm -rf build_dir/target* build_dir/toolchain* staging_dir/target* staging_dir/toolchain*; done
+
     - name: After Build
       run: |
         /bin/bash /home/runner/immortalwrt/after_build.sh
